@@ -22,6 +22,7 @@ boolean newData = false;
 
 // Parsed data
 JsonDocument doc;
+JsonDocument tmp;
 std::string logLines[numLogs] = {};
 
 /* Example inputs:
@@ -37,6 +38,7 @@ void updateScreen();
 
 void setup()
 {
+  Serial.setRxBufferSize(numChars);
   Serial.begin(115200);
 
   for (int x = 5000; x > 0; x-=1000) {
@@ -108,20 +110,22 @@ boolean processData() {
     std::string inputType = input.substr(0, idx);
     std::string inputData = input.substr(idx+1);
     if (inputType == "status") {
-      DeserializationError err = deserializeJson(doc, inputData);
+      DeserializationError err = deserializeJson(tmp, inputData.c_str());
 
       switch (err.code()) {
           case DeserializationError::Ok:
+              doc = tmp;
               ret = true;
               break;
           case DeserializationError::InvalidInput:
-              Serial.print(F("Invalid input!"));
+              Serial.print("Invalid input!");
+              Serial.println(inputData.c_str());
               break;
           case DeserializationError::NoMemory:
-              Serial.print(F("Not enough memory"));
+              Serial.println("Not enough memory");
               break;
           default:
-              Serial.print(F("Deserialization failed"));
+              Serial.println("Deserialization failed");
               break;
       }
     } else if (inputType == "log") {
