@@ -126,6 +126,7 @@ boolean processData() {
               break;
           default:
               Serial.println("Deserialization failed");
+              Serial.println(inputData.c_str());
               break;
       }
     } else if (inputType == "log") {
