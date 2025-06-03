@@ -171,14 +171,14 @@ boolean processData() {
     std::string inputType = input.substr(0, idx);
     std::string inputData = input.substr(idx+1);
     if (inputType == "status") {
-      bossReady = true;
-      bossShutdown = false;
       DeserializationError err = deserializeJson(tmp, inputData.c_str());
 
       switch (err.code()) {
           case DeserializationError::Ok:
               doc = tmp;
               ret = true;
+              bossReady = true;
+              bossShutdown = false;
               break;
           case DeserializationError::InvalidInput:
               Serial.print("Invalid input!");
@@ -193,13 +193,13 @@ boolean processData() {
               break;
       }
     } else if (inputType == "log") {
-      bossReady = true;
-      bossShutdown = false;
       for (int i = numLogs - 2; i >= 0 ; i--) {
         logLines[i+1] = logLines[i];
       }
       logLines[0] = inputData;
       ret = true;
+      bossReady = true;
+      bossShutdown = false;
     } else if (inputType == "boss") {
       if (inputData == "ready") {
         bossReady = true;
