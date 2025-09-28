@@ -403,12 +403,12 @@ void drawStatus(void) {
 
   tft.setTextSize(1);
   tft.setCursor(69, 77);
-  tft.printInt(doc["logs"]["NumFirewallWanIn"]);
+  tft.printInt(doc["openwrt"]["NumWanIn"]);
 
   tft.drawBitmap(136, 68, image_material_symbols_light__output_bits, 24, 24, 0xC618);
 
   tft.setCursor(161, 77);
-  tft.printInt(doc["logs"]["NumFirewallWanOut"]);
+  tft.printInt(doc["openwrt"]["NumWanOut"]);
 
   tft.drawBitmap(234, 68, image_material_symbols_light__block_bits, 24, 24, 0xB000);
 
@@ -423,12 +423,12 @@ void drawStatus(void) {
 
   tft.setTextSize(1);
   tft.setCursor(69, 100);
-  tft.printInt(doc["logs"]["NumFirewallLanIn"]);
+  tft.printInt(doc["openwrt"]["NumLanIn"]);
 
   tft.drawBitmap(136, 91, image_material_symbols_light__output_bits, 24, 24, 0xBDF7);
 
   tft.setCursor(161, 100);
-  tft.printInt(doc["logs"]["NumFirewallLanOut"]);
+  tft.printInt(doc["openwrt"]["NumLanOut"]);
 
   tft.drawBitmap(234, 91, image_material_symbols_light__block_bits, 24, 24, 0xB000);
 
